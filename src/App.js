@@ -1,22 +1,21 @@
-import logo from "./logo.svg";
-import "./App.css";
 import React, { useState } from "react";
-import Card from "./components/UI/Card";
-import Users from "./components/Users/Users";
-
-const DUMMY = [];
+import AddUser from "./components/Users/AddUser";
+import UsersList from "./components/Users/UsersList";
 
 function App() {
-  const [datas, setDatas] = useState(DUMMY);
-
-  const updateDataHandler = (data) => {
-    setDatas((prev) => {
-      return [data, ...prev];
+  const [usersList, setUserList] = useState([]);
+  const addUserHandler = (uName, uAge) => {
+    setUserList((prevUsersList) => {
+      return [
+        ...prevUsersList,
+        { name: uName, age: uAge, id: Math.random().toString() },
+      ];
     });
   };
   return (
-    <div className="App">
-      <Users onUpdate={updateDataHandler} data={datas} />
+    <div>
+      <AddUser onAddUser={addUserHandler} />
+      <UsersList users={usersList} />
     </div>
   );
 }
